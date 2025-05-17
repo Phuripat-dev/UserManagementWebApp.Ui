@@ -4,6 +4,8 @@
 ![Screenshot 2025-05-17 154658](https://github.com/user-attachments/assets/d5e3e9fb-7f20-46e2-bc79-80ac06c6714f)
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+*You have to create a mockup data in you database using backend API before testing the application*
+*In your database, please create users with roles then copy roleId for each role and paste it in 'roles' object list in dashboard.component.ts in order to set the role list for role selector*
 
 ## Development server
 
