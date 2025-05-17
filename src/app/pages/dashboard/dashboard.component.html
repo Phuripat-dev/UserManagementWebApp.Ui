@@ -1,0 +1,320 @@
+<div class="container">
+  <h5 class="mt-2">Hello Lekan</h5>
+  <h6 class="mt-1 text-secondary">have a nice day</h6>
+  <h2 class="mt-4 text-primary">Users Dashboard</h2>
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+    <div class="container-fluid">
+      <div class="" id="navbarSupportedContent">
+        <ul class="navbar-nav me-0 mb-2 mb-lg-0">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            style="width: 800px"
+          />
+          <button
+            class="btn btn-primary me-2"
+            type="button"
+            data-bs-toggle="modal"
+            data-bs-target="#editUserModal"
+            (click)="openCreateModal()"
+          >
+            Add user +
+          </button>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Sort By
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Saved Search
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+            </ul>
+          </li>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="currentColor"
+            class="bi bi-sliders m-2"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"
+            />
+          </svg>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Create User Modal -->
+  <div
+    class="modal fade"
+    id="editUserModal"
+    tabindex="-1"
+    aria-labelledby="myModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog custom-modal-size">
+      <div class="modal-content">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <div class="modal-header">
+            <h5 class="modal-title" id="myModalLabel">
+              {{ isEditMode ? "Edit User" : "Create User" }}
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <div class="mt-2">
+                <div class="mt-3">
+                  <input
+                    type="text"
+                    id="userId"
+                    class="form-control"
+                    [value]="
+                      isEditMode && selectedUser ? selectedUser.userId : ''
+                    "
+                    [placeholder]="isEditMode ? '' : 'User ID (auto-generate)'"
+                    disabled
+                  />
+                </div>
+
+                <div class="d-flex w-100">
+                  <div class="mt-3 me-2 flex-grow-1">
+                    <input
+                      type="text"
+                      id="firstName"
+                      class="form-control"
+                      name="firstName"
+                      placeholder="First Name *"
+                      required
+                      formControlName="firstName"
+                    />
+                  </div>
+                  <div class="mt-3 flex-grow-1">
+                    <input
+                      type="text"
+                      id="lastName"
+                      class="form-control"
+                      name="lastName"
+                      placeholder="Last Name *"
+                      required
+                      formControlName="lastName"
+                    />
+                  </div>
+                </div>
+
+                <div class="d-flex w-100">
+                  <div class="mt-3 me-2 w-50 flex-grow-1">
+                    <input
+                      type="text"
+                      id="email"
+                      class="form-control"
+                      name="email"
+                      placeholder="Email ID *"
+                      required
+                      formControlName="email"
+                    />
+                  </div>
+                  <div class="mt-3 me-2 w-50 flex-grow-1">
+                    <input
+                      type="text"
+                      id="phone"
+                      class="form-control"
+                      name="phone"
+                      placeholder="Mobile No"
+                      formControlName="phone"
+                    />
+                  </div>
+                  <select
+                    class="form-select mt-3 flex-grow-1"
+                    aria-label="Select Role Type"
+                    [formControl]="roleControl"
+                  >
+                    <option [ngValue]="null" disabled>Select Role Type</option>
+                    <option *ngFor="let role of roles" [ngValue]="role">
+                      {{ role.roleName }}
+                    </option>
+                  </select>
+                </div>
+                <div class="d-flex w-100">
+                  <div class="mt-3 me-2 flex-grow-1">
+                    <input
+                      type="text"
+                      id="userName"
+                      class="form-control"
+                      name="userName"
+                      placeholder="Username *"
+                      required
+                      formControlName="userName"
+                    />
+                  </div>
+                  <div class="mt-3 me-2 flex-grow-1">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="Password *"
+                      required
+                      formControlName="password"
+                    />
+                  </div>
+                  <div class="mt-3 flex-grow-1">
+                    <input
+                      type="password"
+                      id="confirmPassword"
+                      class="form-control"
+                      name="confirmPassword"
+                      formControlName="confirmPassword"
+                      placeholder="Confirm Password *"
+                      required
+                    />
+                    <div
+                      *ngIf="form.get('confirmPassword')?.touched && form.get('confirmPassword')?.errors?.['mismatch']"
+                      class="text-danger"
+                    >
+                      Passwords do not match.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <table
+                class="table table-bordered mt-3"
+                formArrayName="permissions"
+              >
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">Module</th>
+                    <th scope="col" class="text-center">Read</th>
+                    <th scope="col" class="text-center">Write</th>
+                    <th scope="col" class="text-center">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="
+                      let permission of permissionsFormArray.controls;
+                      let i = index
+                    "
+                    [formGroupName]="i"
+                  >
+                    <td>
+                      <input
+                        type="text"
+                        class="form-control-plaintext"
+                        formControlName="permissionName"
+                        readonly
+                      />
+                    </td>
+                    <td class="text-center">
+                      <input type="checkbox" formControlName="isReadable" />
+                    </td>
+                    <td class="text-center">
+                      <input type="checkbox" formControlName="isWritable" />
+                    </td>
+                    <td class="text-center">
+                      <input type="checkbox" formControlName="isDeletable" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              {{ isEditMode ? "EditUser" : "AddUser" }}
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    *ngIf="showAlert"
+    class="alert alert-danger alert-dismissible fade show"
+    role="alert"
+  >
+    <strong>Fail to proceed!</strong> Passwords Mismatch
+    <button
+      type="button"
+      class="btn-close"
+      (click)="closeAlert()"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  <ng-container>
+    <h3>List Users</h3>
+    <table class="table table-bordered mt-3">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.firstName }} {{ user.lastName }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.role.roleName }}</td>
+          <td>
+            <a
+              class="btn btn-primary me-2"
+              data-bs-toggle="modal"
+              data-bs-target="#editUserModal"
+              (click)="openEditModal(user)"
+              >Edit</a
+            >
+            <a class="btn btn-danger" (click)="deleteUser(user.userId)"
+              >Delete</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </ng-container>
+</div>

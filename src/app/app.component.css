@@ -1,0 +1,11 @@
+.nav-link {
+  color: #616161; /* Lighter text by default */
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-link.active,
+.nav-link.router-link-active {
+  color: #2782dd; /* Darker when active */
+  font-weight: 600;
+}

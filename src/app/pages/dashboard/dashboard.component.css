@@ -1,0 +1,9 @@
+.custom-modal-size {
+  max-width: 1000px;
+  width: 100%;
+}
+
+.custom-modal-size .modal-content {
+  height: 650px;
+  overflow-y: auto;
+}
